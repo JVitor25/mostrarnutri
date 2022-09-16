@@ -1,0 +1,52 @@
+server:
+  port: 8080
+  #ervlet:
+    #context-path: /gateway
+  
+spring:
+  application:
+    name: gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+      - id: auth
+        uri: http://localhost:8082/
+        predicates:
+        - Path=/auth/**
+      - id: nutritionist
+        uri: http://localhost:8083/
+        predicates:
+        - Path=/nutritionist/**
+      - id: user
+        uri: http://localhost:8084/
+        predicates:
+        - Path=/user/**
+      - id: bookkeeper
+        uri: http://localhost:8085/
+        predicates:
+        - Path=/bookkeeper/**
+          
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: gateway, health, info
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
+  instance:
+    hostname: localhost

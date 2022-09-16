@@ -1,0 +1,34 @@
+server:
+  port: 8085
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+spring:
+  application:
+    name: bookkeper
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/db_nutritionapi?createDatabaseIfNotExist=true&serverTimezone=America/Sao_Paulo&useSSl=false&allowPublicKeyRetrieval=true&sslMode=DISABLED
+    username: root
+    password: root
+
+  jackson:
+    data-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Brazil/East
+
+  jpa:
+    hibernate.ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
+    database: mysql
+    generate-ddl: true
+    show-sql: true
+
+  jmx:
+    enabled: false
